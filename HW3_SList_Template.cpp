@@ -31,41 +31,14 @@ Node* Node::GetLink_Next() {
 }
 
 // Singly Linked List Class Definition
-// *************
-// 1. GetSize()
-// This function returns the number of nodes in the list.
-// *************************
-// 2. LinearSearch(int key)
-// This function performs linear search on the list with the given key.
-// If key is not found or the list is empty, return -1.
-// If key is found, return location of the node holding that key.
-// Location will start from 0 and ends at n-1.
-// *************************
-// 3. Add(int val, int idx)
-// This function adds a node with data "val" at location "idx".
-// Here, "idx" starts from 0 (head node) and ends at n-1 (tail node).
-// If the input "idx" is bigger than n-1, then add node to the tail.
-// *******************
-// 4. Remove(int idx)
-// This function removes the node at location "idx".
-// Here, "idx" starts from 0 (head node) and ends at n-1 (tail node).
-// If the input "idx" is bigger than n-1, then remove the tail.
-// *************
-// 5. Reverse()
-// This function reverses the current list.
-// If the list is empty or contains only one node, do nothing.
-
 class SList {
 private:
     Node* head;
 public:
-    // The following four functions are given to you.
-    // The SetHead and GetHead functions are only useful for merge sort.
     SList();
     void Print();
     void SetHead(Node* ptr);
     Node* GetHead();
-    // You need to complete the following five functions.
     int GetSize();
     int LinearSearch(int key);
     void Add(int val, int idx);
@@ -88,6 +61,8 @@ Node* SList::GetHead() {
 void SList::SetHead(Node* ptr) {
     head = ptr;
 }
+
+// This function returns the number of nodes in the list.
 int SList::GetSize() {
     int size = 0;
     Node *temp = head;
@@ -97,6 +72,12 @@ int SList::GetSize() {
     }
     return size;
 }
+
+// This function performs linear search on the list with the given key.
+// If key is not found or the list is empty, return -1.
+// If key is found, return location of the node holding that key.
+// Location will start from 0 and ends at n-1.
+
 int SList::LinearSearch(int key) {
     Node *temp = head;
     int pos {0};
@@ -109,6 +90,11 @@ int SList::LinearSearch(int key) {
     }
     return -1;
 }
+
+// This function adds a node with data "val" at location "idx".
+// Here, "idx" starts from 0 (head node) and ends at n-1 (tail node).
+// If the input "idx" is bigger than n-1, then add node to the tail.
+
 void SList::Add(int val, int idx) {
     Node *newNode = new Node();
     newNode->SetData(val);
@@ -139,6 +125,10 @@ void SList::Add(int val, int idx) {
     }
 
 }
+// This function removes the node at location "idx".
+// Here, "idx" starts from 0 (head node) and ends at n-1 (tail node).
+// If the input "idx" is bigger than n-1, then remove the tail.
+
 void SList::Remove(int idx) {
     //remove at beginning of list
     if(idx == 0){
@@ -163,6 +153,10 @@ void SList::Remove(int idx) {
         temp->SetLink_Next(temp->GetLink_Next()->GetLink_Next());
     }
 }
+
+// This function reverses the current list.
+// If the list is empty or contains only one node, do nothing.
+
 void SList::Reverse() {
     SList *list = new SList();
     Node *temp = head;
@@ -172,24 +166,9 @@ void SList::Reverse() {
     }
     head = list->GetHead();
 }
-//
-// -----------
 // Merge Sort
-// -----------
-// The following is an incomplete merge sort function.
 // Its input is the head pointer of a singly linked list.
 // Its output is the head pointer of the sorted list.
-// We will test this function in the following way:
-// First, use your SList class to generate a singly linked list.
-// Then, retrive its head pointer and pass it to the merge sort function.
-// Finally, get a new head pointer of the sorted list, pass it back to the list
-//class and print it.
-// You can see the testing code in the main function (mode = 7)
-// .........
-// Your task is to design and implement this merge sort function
-// based on the singly linked list data structure.
-// No array or vector can be used.
-// Tip: it should be recursive.
 
 //helper method to merge two lists
 Node* MergeList(Node* list1, Node* list2){
@@ -224,12 +203,14 @@ Node* MergeSort(Node* ptr) {
         ++size;
         temp = temp->GetLink_Next();
     }
+   
     //check base case size == 1
     if(size < 2){
         return ptr;
     }
     int midPoint = size/2;
     Node* temp2 = ptr;
+   
     //split given list into two lists
     for(int i = 0; i < midPoint; ++i){
         left->Add(temp2->GetData(), i);
@@ -241,9 +222,11 @@ Node* MergeSort(Node* ptr) {
         ++pos;
         temp2 = temp2->GetLink_Next();
     }
+    
     //recursive call
     left->SetHead(MergeSort(left->GetHead()));
     right->SetHead(MergeSort(right->GetHead()));
+    
     //merge into new list
     SList *sortedList = new SList();
     sortedList->SetHead(MergeList(left->GetHead(), right->GetHead()));
