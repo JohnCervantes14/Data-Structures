@@ -1,35 +1,3 @@
-//
-// In this assignment, we implement a binary search tree.
-// The node class and its member functions have been defined for you.
-// The tree class has been defined for you, too.
-// Your task is to complete the member functions of the tree class.
-// You can also add other member functions to the tree class.
-//
-// After implementation, please also try to design your own
-// testing cases to test the program. The examples given in the
-// instruction document only aim to provide a concrete idea on
-// how the outputs should look like, and may not be sufficient
-// to reveal all possible (logical) flaws in the program.
-//
-// There are generally two steps to design testing cases.
-//
-// Step 1 is to identify possible scenarios.
-// For example, after implementing a remove function, you may
-// want to test (1) remove a leaf node, (2) remove the root node,
-// (3) remove a node not in the tree, (4) remove a node
-// in the left subtree, (5) remove a node in the right subtree.
-// You may also want to test the scenario when we continously
-// remove a set of nodes.
-//
-// Step 2 is to design input and expected output for each scenario.
-// For example, to test removing a root node, you may want to first
-// draw the input tree, manually perform removal based on your design
-// (assume it is correctly implemented) and manually figure out what
-// the resulted tree should look like. Then, run your program and see
-// if it gives the same result.
-// Not that even if your program has no problem being complied, it may
-// give a different result which implies logical flaws in the design.
-//
 #include <iostream>
 #include <vector>
 #include<queue>
@@ -81,77 +49,7 @@ Node* Node::GetRight() {
 int Node::GetSID() {
     return SID;
 };
-//
-// Below is the binary search tree class.
-// The tree should contain both NIL nodes (SID==-1)
-// and non-NIL nodes (SID > 0).
-//
-// Currently, the class has ten public member functions.
-// Four are implemented for you. Please implement the rest.
-//
-// To facilitate implementation, you can add member functions.
-// For example, you probably want to add a Search function.
-// Tip1: you may want to test the added functions before using
-// them to implement the target functions.
-// Tip2: properly design the input and output of additional
-// functions so it can be efficiently used by target functions.
-//
-//
-// All member functions are explained below.
-//
-// 1. BinarySearchTree
-// This function initializes the tree.
-// It is defined for you.
-//
-// 2. SetRoot
-// This function set the root pointer.
-// It is defined for you.
-//
-// 3. GetRoot
-// This function returns the root pointer.
-// It is defined for you.
-//
-// 4. PreTraverse
-// This function performs pre-order traverse of the tree.
-// It is defined for you.
-// It will be used to examine other functions.
-//
-// 5. Size()
-// This function returns the number of non-NIL nodes in the tree.
-// Please complete it.
-//
-// 6. Add(Node *ptr)
-// This function adds a node at address "ptr" to the tree.
-// Please complete it.
-// There are reference in the lecture slides.
-//
-// 7. FindMax(Node *ptr)
-// This function returns the address of the maximum node
-// (i.e., node with the larget SID) in the tree rooted at ptr.
-// Please complete it.
-//
-// 8. FindMin(Node *ptr)
-// This function returns the address of the minimum node
-// (i.e., node with the smallest SID) in the tree rooted at ptr.
-// Please complete it.
-//
-// 9. Remove1(int key)
-// This function removes the node whose SID==key from the tree.
-// If this node is not in the tree, do nothing.
-// This function implements Algorithm 1 (recursively fill holes)
-// in the lecture slides.
-// ** When filling a hole, please always try to find the max node
-// in the left sub-tree first; if the left sub-tree does not exist,
-// then find the min node in the right sub-tree. **
-// ** Same requirement for Remove2 when the hole has two child nodes. **
-//
-// 10. Remove2(int key)
-// This function removes the node whose SID==key from the tree.
-// If this node is not in the tree, do nothing.
-// This function implements Algorithm 2 (replace single-child node
-// with its only sub-tree) in the lecture slides.
-//
-//
+
 class BinarySearchTree {
 private:
     Node* root;
@@ -174,17 +72,25 @@ public:
     void Copy(Node* ptr, Node* copy);
     int countChild (Node* ptr);
 };
+
+// This function initializes the tree.
 BinarySearchTree::BinarySearchTree() {
     root = NULL;
 
 };
+
+// This function set the root pointer.
 void BinarySearchTree::SetRoot(Node* ptr) {
     root = ptr;
     Min->SetSID(ptr->GetSID());
 };
+
+// This function returns the root pointer.
 Node* BinarySearchTree::GetRoot() {
     return root;
 };
+
+// This function performs pre-order traverse of the tree.
 void BinarySearchTree::PreTraverse(Node* ptr) {
     if (ptr->GetSID() == -1) {
         return;
@@ -211,6 +117,8 @@ int BinarySearchTree::BFSTraverse(){
     }
     return count;
 };
+
+// This function returns the number of non-NIL nodes in the tree.
 int BinarySearchTree::Size() {
     return BFSTraverse();
 };
@@ -229,6 +137,8 @@ Node* BinarySearchTree::Search(Node* node, int key){
         Search(node->GetRight(), key);
     }
 };
+
+// This function adds a node at address "ptr" to the tree.
 void BinarySearchTree::Add(Node *ptr) {
     if(GetRoot() == NULL){
         SetRoot(ptr);
@@ -254,6 +164,8 @@ void BinarySearchTree::Add(Node *ptr) {
         ptr->GetLeft()->SetParent(ptr);
     }
 };
+
+// This function returns the address of the maximum node
 Node* BinarySearchTree::FindMax(Node *ptr) {
     if (ptr->GetSID() == -1) {
         return Max;
@@ -266,6 +178,8 @@ Node* BinarySearchTree::FindMax(Node *ptr) {
     }
 
 };
+
+// This function returns the address of the minimum node
 Node* BinarySearchTree::FindMin(Node *ptr) {
     if (ptr->GetSID() == -1) {
         return Min;
@@ -284,6 +198,9 @@ bool BinarySearchTree::IsLeaf(Node *ptr) {
     else return false;
 }
 
+// This function removes the node whose SID==key from the tree.
+// If this node is not in the tree, do nothing.
+// This function implements Algorithm 1 (recursively fill holes)
 void BinarySearchTree::Remove1(int key) {
     Node* temp = Search(root, key);
 
@@ -323,6 +240,11 @@ int BinarySearchTree::countChild(Node* ptr){
     }
     return count;
 }
+
+// This function removes the node whose SID==key from the tree.
+// If this node is not in the tree, do nothing.
+// This function implements Algorithm 2 (replace single-child node
+// with its only sub-tree) 
 void BinarySearchTree::Remove2(int key) {
     Node* temp = Search(root, key);
     if(temp->GetSID() == -1){
