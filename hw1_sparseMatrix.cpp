@@ -3,7 +3,7 @@ using namespace std;
 class matrix {
 public:
     void SetEntry(int i, int j, int v);
-    int GetEntry(int i, int j); // this is already defined for you.
+    int GetEntry(int i, int j); 
     int CountNonZero();
     void GetSparseRep();
     int* SparseRow, * SparseCol, * SparseVal;
@@ -32,23 +32,11 @@ int matrix::CountNonZero() {
     return count;
 }
 void matrix::GetSparseRep() {
-
-    // ------------------------------------------------------
     // generate a sparse representation of matrix "m"
-    // ------------------------------------------------------
-    // assign results to (SparseRow, SparseCol, SparseVal)
     // use SparseRow to hold row indices
     // use SparseCol to hold column indices
     // use SparseVal to hold entry values
-    //
-    // For example, if the first non-zero element we find is m[a][b],
-    // then SparseRow[0]=a, SparseCol[0]=b, SparseVale[0]=m[a][b].
-    // If the second non-zero element we find is m[c][d], then
-    // SparseRow[1]=a, SparseCol[1]=b, SparseVale[1]=m[a][b]
-    //
-    // parts of the code is given to you, please build on them.
-    // you can add lines both inside and outside the loop.
-    // --------------------------------------------------------
+    
     int size = CountNonZero();
     SparseRow = new int [size];
     SparseCol = new int [size];
@@ -68,14 +56,6 @@ void matrix::GetSparseRep() {
 }
 int main()
 {
-    // The main function is given to you.
-    // It first declares a matrix object "x",
-    // then inputs the matrix values,
-    // then generates the sparse representation
-    // of the matrix and finally outputs it.
-    // You do not need to modify this function.
-    // And please do not modify it or Grade scope
-    // may not recognize the format of your input/output.
     matrix x;
 
     int temp, mode;
