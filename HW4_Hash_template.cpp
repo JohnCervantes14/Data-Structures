@@ -1,13 +1,3 @@
-// In HW4, we implement a hash table class that
-// addresses collision using separate chaining.
-//
-// We will use the modular hash function, whose
-// base equals to the hash table size (input as `size').
-//
-// The table will store student nodes.
-// The student class is defined for you. Do not change it (unless there are typos
-// to fix).
-// The table class is partly defined. Do not change the private members.
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -47,18 +37,13 @@ HashTable::HashTable(int table_size) {
 int HashTable::Hash(int key) {
     return key % size;
 };
-// Add_Head(Student x)
+
 // This function add a new student x to the head of the list at table[x.SID].
 // For example, suppose the hash function is key%3
 // and if the current hash table is
 // table[0] -> 3 -> 9
 // table[1] -> 1 -> 4
 // table[2] -> 2 -> 5
-// if we add a new student with SID=6, the new table should be
-// table[0] -> 6 -> 3 -> 9
-// table[1] -> 1 -> 4
-// table[2] -> 2 -> 5
-
 void HashTable::Add_Head(Student x) {
     int index = Hash(x.SID);
     Student* add = new Student(x);
@@ -71,17 +56,12 @@ void HashTable::Add_Head(Student x) {
         table[index] = add;
     }
 }
-// Add_Order(Student x)
-// This function add a new student x to the list at table[x.SID]
-// such that the list remains sorted in ascending order.
+
+// This function add a new student x to the list at table[x.SID] such that the list remains sorted in ascending order.
 // For example, suppose the hash function is key%3
 // and if the current hash table is
 // table[0] -> 3 -> 9
 // table[1] -> 1 -> 4
-// table[2] -> 2 -> 5
-// if we add a new student with SID=6, the new table should be
-// table[0] -> 3 -> 6 -> 9
-// table[1] -> 1 -> 3
 // table[2] -> 2 -> 5
 void HashTable::Add_Order(Student x) {
     //if list at SID is empty
@@ -115,20 +95,12 @@ void HashTable::Add_Order(Student x) {
         }
     }
 }
-// Remove(int key)
+
 // This function removes a student x from the table if x.SID == key.
 // If the student is not in the table, do nothing.
 // For example, if the current hash table is
 // table[0] -> 6 -> 3
 // table[1] -> 4 -> 1
-// table[2] -> 5 -> 2
-// if we run Remove(4), the new table will be
-// table[0] -> 6 -> 3
-// table[1] -> 1
-// table[2] -> 5 -> 2
-// if we further run Remove(7), the new table will remain the same, i.e.,
-// table[0] -> 6 -> 3
-// table[1] -> 1
 // table[2] -> 5 -> 2
 void HashTable::Remove(int key) {
     Student* temp = table[Hash(key)];
@@ -146,15 +118,13 @@ void HashTable::Remove(int key) {
    }
 
 }
-// Search(int key)
+
 // This function returns the major of student x in the table if x.SID == key.
 // If the student is not in the table, return NA.
 // For example, if the current hash table is
 // table[0] -> 6 -> 3
 // table[1] -> 4 -> 1
 // table[2] -> 5 -> 2
-// if we run Search(4), student 4's major should be returned.
-// if we run Search(7), 'NA' should be returned.
 major HashTable::Search(int key) {
     Student* temp = table[Hash(key)];
     if(temp->SID == key){
@@ -171,16 +141,13 @@ major HashTable::Search(int key) {
     }
 
 }
-// Print()
-// ---------------------
+
 // This function prints all SIDs in the table row by row and head-to-tail per row.
 // For example, if the current hash table is
 // table[0] -> 6 -> 3
 // table[1] -> 4 -> 1
 // table[2] -> 5 -> 2
 // if we run Print(), we should see "6 3 4 1 5 2" (vertically)
-// For Gradescope to grade correctly, please strictly follow the given output
-//format.
 void HashTable::Print() {
     Student* temp;// used to store the node we want to print
 
@@ -191,10 +158,6 @@ void HashTable::Print() {
             temp = temp->next;
         }
     }
-    // whenever you get a node to print, assign its address to temp
-    // and print its SID using "cout << temp->SID << endl;"
-    // do not add any other cout otherwise gradescope will fail to grade it
-    //correctly
 };
 int main()
 {
@@ -203,10 +166,7 @@ int main()
     Student temp;
     // Input test mode, table size, search key.
     cin >> mode >> size >> key;
-    // Store input nodes in a vector for now.
-    // However, we should not vectors to stored
-    // collided students in the hash table.
-    // We should use linked list instead.
+    
     while (cin >> sid >> maj) {
         temp.SID = sid;
         temp.MAJ = static_cast<major>(maj);
